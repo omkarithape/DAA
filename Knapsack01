@@ -1,0 +1,23 @@
+def solve_knapsack():
+    val = list(map(int, input("Enter the values separated by spaces: ").split()))
+    wt = list(map(int, input("Enter the weights separated by spaces: ").split()))
+    W = int(input("Enter the knapsack capacity: "))
+    n = len(val) - 1
+    
+    def knapsack(W, n):
+        # base case
+        if n < 0 or W <= 0:
+            return 0
+        
+        # Higher weight than available
+        if wt[n] > W:
+            return knapsack(W, n - 1)
+        else:
+            return max(val[n] + knapsack(W - wt[n], n - 1), knapsack(W, n - 1))
+            # max(including, not including)
+    
+    print("Maximum value that can be obtained:", knapsack(W, n))
+
+if __name__ == "__main__":
+    solve_knapsack()
+
